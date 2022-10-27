@@ -1,0 +1,84 @@
+// C++ program for the above approach
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Function to find the maximum increment
+// in each cell of the given matrix such
+// that maximum and minimum value remains
+// unaffected
+int maxIncrease(vector<vector<int> >& matrix)
+{
+	// Get the row of matrix as M
+	int M = matrix.size();
+
+	// Get the column of matrix as N
+	int N = matrix[0].size();
+
+	// To store the row-wise
+	// maximum values
+	vector<int> maxRowVal(M, 0);
+
+	// To store the column-wise
+	// maximum values
+	vector<int> maxColVal(N, 0);
+
+	// Traverse along the matrix
+	// to store the maximum values
+	// of each row and column
+	for (int i = 0; i < M; i++) {
+
+		for (int j = 0; j < N; j++) {
+
+			// Store the row-wise
+			// maximum values
+			maxRowVal[i] = max(maxRowVal[i],
+							matrix[i][j]);
+
+			// Store the column-wise
+			// maximum values
+			maxColVal[j] = max(maxColVal[j],
+							matrix[i][j]);
+		}
+	}
+
+	// Calculate the total amount
+	// of increment
+	int totalIncrease = 0;
+
+	// Traverse matrix mat[][]
+	for (int i = 0; i < M; i++) {
+
+		for (int j = 0; j < N; j++) {
+
+			// The maximum possible
+			// amount to increase
+			int needToIncrease
+				= min(maxRowVal[i],
+					maxColVal[j])
+				- matrix[i][j];
+
+			// Total increased value
+			totalIncrease += needToIncrease;
+		}
+	}
+
+	// Return the total
+	// increased value
+	return totalIncrease;
+}
+
+// Driver Code
+int main()
+{
+	// Given matrix
+	vector<vector<int> > matrix{ { 3, 0, 8, 4 },
+								{ 2, 4, 5, 7 },
+								{ 9, 2, 6, 3 },
+								{ 0, 3, 1, 0 } };
+
+	// Function Call
+	cout << maxIncrease(matrix)
+		<< endl;
+	return 0;
+}

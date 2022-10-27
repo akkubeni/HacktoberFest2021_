@@ -1,0 +1,61 @@
+// C++ program to find Reverse the
+// rows and columns of a matrix alternatively.
+#include <bits/stdc++.h>
+using namespace std;
+const int N = 4;
+const int M = 4;
+
+// Print matrix elements
+void showArray(int arr[][N])
+{
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++)
+			cout << arr[i][j] << " ";
+		cout << endl;
+	}
+}
+
+// Function to Reverse the rows and columns
+// of a matrix alternatively.
+void reverseAlternate(int arr[][N])
+{
+	int turn = 0;
+
+	while (turn < M && turn < N) {
+		if (turn % 2 == 0) {
+			int start = 0, end = N - 1, temp;
+			while (start < end) {
+				temp = arr[turn][start];
+				arr[turn][start] = arr[turn][end];
+				arr[turn][end] = temp;
+				start += 1;
+				end -= 1;
+			}
+			turn += 1;
+		}
+
+		if (turn % 2 == 1) {
+			int start = 0, end = M - 1, temp;
+			while (start < end) {
+				temp = arr[start][turn];
+				arr[start][turn] = arr[end][turn];
+				arr[end][turn] = temp;
+				start += 1;
+				end -= 1;
+			}
+			turn += 1;
+		}
+	}
+}
+
+// Driver code
+int main()
+{
+
+	int matrix[][N] = { { 3, 4, 1, 8 },
+						{ 11, 23, 43, 21 },
+						{ 12, 17, 65, 91 },
+						{ 71, 56, 34, 24 } };
+	reverseAlternate(matrix);
+	showArray(matrix);
+}
